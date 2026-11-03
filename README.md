@@ -1,78 +1,58 @@
-# StudyBuddy 📚
+# StudyBuddy
 
-StudyBuddy is an AI-powered learning assistant that helps you generate concise study guides and flashcards in seconds. It features a cross-platform **Flutter** frontend and a **Node.js Express** backend powered by the **Google Gemini API** (`gemini-2.5-flash`).
+A study assistant that generates concise flashcards for any topic. The Flutter client sends the topic to a Node.js Express backend, which calls the Google Gemini API (`gemini-2.5-flash`) and returns three structured flashcards.
 
----
+## Screenshots
 
-## 📱 Screenshots
+| Generate | Results |
+|:---:|:---:|
+| ![Generate screen](screenshots/generate_screen.png) | ![Results screen](screenshots/results_screen.png) |
 
-Here is a preview of the application in action:
+## Features
 
-<!-- Replace 'path/to/your/screenshot.png' with the actual relative path to your screenshot file in the repository -->
-| Generate Study Guide | Study Guide Results |
-| :---: | :---: |
-| ![Generate Guide Screen](screenshots/generate_screen.png) | ![Results Screen](screenshots/results_screen.png) |
+- Generates three structured, factual flashcards for a given topic.
+- The Gemini API key stays on the backend and is never shipped inside the app.
+- The Flutter client selects the correct backend address for web, desktop and the Android emulator.
+- Dark theme with responsive layouts.
 
-> [!TIP]
-> To display screenshots on GitHub:
-> 1. Create a `screenshots` folder in the root of this project.
-> 2. Move your screenshot images into that folder.
-> 3. Update the paths above (e.g. change `screenshots/generate_screen.png` to your actual file names).
+## Architecture
 
----
+```
+Flutter app  ->  Express backend (Node.js)  ->  Gemini API
+   (UI)            holds API key, builds prompt     (gemini-2.5-flash)
+```
 
-## ✨ Features
+## Tech stack
 
-- **AI-Powered Generation**: Generates 3 highly structured, factual flashcards for any given study topic.
-- **Dynamic Platform Adaptation**: The Flutter client automatically routes requests to the correct backend IP depending on whether you're running on the Web, Desktop, or the Android Emulator.
-- **Modern Theme**: Premium dark-mode user interface with responsive layouts.
+- **Frontend:** Flutter (Dart)
+- **Backend:** Node.js, Express
+- **AI:** Google Gemini API through the official `@google/genai` SDK
 
----
+## Getting started
 
-## 🛠️ Tech Stack
+### Prerequisites
+- Flutter SDK
+- Node.js
+- A Gemini API key from [Google AI Studio](https://aistudio.google.com/)
 
-- **Frontend**: [Flutter](https://flutter.dev) (Dart)
-- **Backend**: [Node.js](https://nodejs.org) + [Express](https://expressjs.com)
-- **AI Engine**: [Google Gemini API](https://ai.google.dev) (`gemini-2.5-flash`) via the official `@google/genai` SDK
+### Backend
+```bash
+cd backend
+npm install
+export GEMINI_API_KEY="your-api-key-here"
+npm start
+```
+The backend runs on `http://localhost:3000`.
 
----
+### Frontend
+```bash
+cd flutter_app
+flutter pub get
+flutter run
+```
 
-## 🚀 Getting Started
+## Roadmap
 
-### 1. Prerequisites
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) installed.
-- [Node.js](https://nodejs.org) installed.
-- A **Gemini API Key** from [Google AI Studio](https://aistudio.google.com/).
-
-### 2. Setting Up the Backend
-1. Navigate to the `backend` folder:
-   ```bash
-   cd backend
-   ```
-2. Install the dependencies:
-   ```bash
-   npm install
-   ```
-3. Set your Gemini API key environment variable:
-   ```bash
-   export GEMINI_API_KEY="your-api-key-here"
-   ```
-4. Start the backend:
-   ```bash
-   npm start
-   ```
-   The backend will be running on `http://localhost:3000`.
-
-### 3. Setting Up the Frontend
-1. Navigate to the `flutter_app` folder:
-   ```bash
-   cd flutter_app
-   ```
-2. Get Flutter dependencies:
-   ```bash
-   flutter pub get
-   ```
-3. Run the application:
-   ```bash
-   flutter run
-   ```
+- [ ] Choose the number of flashcards
+- [ ] Save and revisit decks
+- [ ] Validate and rate-limit incoming requests on the backend
